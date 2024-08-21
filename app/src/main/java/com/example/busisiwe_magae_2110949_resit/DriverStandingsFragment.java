@@ -11,9 +11,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DriverStandingsFragment extends Fragment {
+    private DriverAdapter driverAdapter;
+    private MainActivity mainActivity;
+
+    public DriverStandingsFragment(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+    }
 
     @Nullable
     @Override
@@ -23,16 +30,17 @@ public class DriverStandingsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewDrivers);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Fetching and parsing the driver standings data
-        String driverXml = ((MainActivity) getActivity()).getDataFromApi(MainActivity.DRIVER_STANDINGS_URL);
-        List<Driver> drivers = ((MainActivity) getActivity()).parseDriverStandings(driverXml);
+        driverAdapter = new DriverAdapter(new ArrayList<>());
+        recyclerView.setAdapter(driverAdapter);
 
-        // Setting up the adapter with parsed data
-        String raceXml = ((MainActivity) getActivity()).getDataFromApi(MainActivity.RACE_SCHEDULE_URL);
-        List<Race> races = ((MainActivity) getActivity()).parseRaceSchedule(raceXml);
-
-
+        mainActivity.fetchDataFromApi(MainActivity.DRIVER_STANDINGS_URL, this::onDriverStandingsDataFetched);
         return view;
+    }
+
+    private void onDriverStandingsDataFetched(String driverXml) {
+        List<Driver> drivers = mainActivity.driverManager.parseDriverStandings(driverXml);
+        driverAdapter.setDrivers(drivers);
+        driverAdapter.notifyDataSetChanged();
     }
 }
 

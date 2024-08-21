@@ -18,6 +18,10 @@ public class RaceAdapter extends RecyclerView.Adapter<RaceAdapter.RaceViewHolder
         this.races = races;
     }
 
+    public void setRaces(List<Race> races) {
+        this.races = races;
+    }
+
     @NonNull
     @Override
     public RaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

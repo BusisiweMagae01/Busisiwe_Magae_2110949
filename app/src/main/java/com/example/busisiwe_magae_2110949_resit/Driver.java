@@ -6,6 +6,7 @@ public class Driver {
     private String surname;
     private String points;
     private String wins;
+    private String team;
 
     // Getters and Setters
     public String getPosition() {
@@ -46,5 +47,13 @@ public class Driver {
 
     public void setWins(String wins) {
         this.wins = wins;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
     }
 }

@@ -18,6 +18,10 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverView
         this.drivers = drivers;
     }
 
+    public void setDrivers(List<Driver> drivers) {
+        this.drivers = drivers;
+    }
+
     @NonNull
     @Override
     public DriverViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,7 +33,7 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverView
     @Override
     public void onBindViewHolder(@NonNull DriverViewHolder holder, int position) {
         Driver driver = drivers.get(position);
-        holder.nameTextView.setText(driver.getName() + " " + driver.getSurname());
+        holder.nameTextView.setText(driver.getName());
         holder.pointsTextView.setText(driver.getPoints());
     }
 

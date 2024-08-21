@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,9 +12,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RaceScheduleFragment extends Fragment {
+    private RaceAdapter raceAdapter;
+    private MainActivity mainActivity;
+
+    public RaceScheduleFragment(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+    }
 
     @Nullable
     @Override
@@ -23,14 +31,22 @@ public class RaceScheduleFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewRaces);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Fetching and parsing the race schedule data
-        String raceXml = ((MainActivity) getActivity()).getDataFromApi(MainActivity.RACE_SCHEDULE_URL);
-        List<Race> races = ((MainActivity) getActivity()).parseRaceSchedule(raceXml);
+        raceAdapter = new RaceAdapter(new ArrayList<>());
+        recyclerView.setAdapter(raceAdapter);
 
-        // Setting up the adapter with parsed data
-        RaceAdapter adapter = new RaceAdapter(races);
-        recyclerView.setAdapter(adapter);
-
+        mainActivity.fetchDataFromApi(MainActivity.RACE_SCHEDULE_URL, this::onRaceScheduleDataFetched);
         return view;
     }
+
+    private void onRaceScheduleDataFetched(String raceXml) {
+        List<Race> races = mainActivity.raceManager.parseRaceSchedule(raceXml);
+        if (races != null && !races.isEmpty()) {
+            raceAdapter.setRaces(races);
+            raceAdapter.notifyDataSetChanged();
+        } else {
+            // Handle the case where no races were parsed
+            Toast.makeText(getContext(), "Unable to load race schedule", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
+
