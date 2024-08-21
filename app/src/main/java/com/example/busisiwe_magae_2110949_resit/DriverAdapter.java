@@ -33,8 +33,8 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverView
     @Override
     public void onBindViewHolder(@NonNull DriverViewHolder holder, int position) {
         Driver driver = drivers.get(position);
-        holder.nameTextView.setText(driver.getName());
-        holder.pointsTextView.setText(driver.getPoints());
+        holder.textViewDriverName.setText(driver.getName());
+        holder.textViewPoints.setText(driver.getPoints());
     }
 
     @Override
@@ -43,13 +43,13 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverView
     }
 
     public static class DriverViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTextView;
-        TextView pointsTextView;
+        public TextView textViewDriverName;
+        public TextView textViewPoints;
 
         public DriverViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.nameTextView);
-            pointsTextView = itemView.findViewById(R.id.pointsTextView);
+            textViewDriverName = itemView.findViewById(R.id.textViewDriverName);
+            textViewPoints = itemView.findViewById(R.id.textViewPoints);
         }
     }
 }

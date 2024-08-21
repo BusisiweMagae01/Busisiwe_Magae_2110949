@@ -42,7 +42,9 @@ public class RaceManager {
                             String tagName = parser.getName();
                             String text = currentText.toString().trim();
                             if ("RaceName".equalsIgnoreCase(tagName)) {
-                                currentRace.setCircuitName(text);
+                                currentRace.setRaceName(text);
+                            } else if ("CircuitName".equalsIgnoreCase(tagName)) {
+                                    currentRace.setCircuitName(text);
                             } else if ("Date".equalsIgnoreCase(tagName)) {
                                 currentRace.setDate(text);
                             } else if ("Race".equalsIgnoreCase(tagName)) {

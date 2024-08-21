@@ -33,9 +33,9 @@ public class RaceAdapter extends RecyclerView.Adapter<RaceAdapter.RaceViewHolder
     @Override
     public void onBindViewHolder(@NonNull RaceViewHolder holder, int position) {
         Race race = races.get(position);
-        holder.raceNameTextView.setText(race.getRaceName());
-        holder.circuitTextView.setText(race.getCircuitName());
-        holder.dateTextView.setText(race.getDate());
+        holder.textViewRaceName.setText(race.getRaceName());
+        holder.textViewCircuitName.setText(race.getCircuitName());
+        holder.textViewDate.setText(race.getDate());
     }
 
     @Override
@@ -44,15 +44,15 @@ public class RaceAdapter extends RecyclerView.Adapter<RaceAdapter.RaceViewHolder
     }
 
     public static class RaceViewHolder extends RecyclerView.ViewHolder {
-        TextView raceNameTextView;
-        TextView circuitTextView;
-        TextView dateTextView;
+        public TextView textViewRaceName;
+        public TextView textViewCircuitName;
+        public TextView textViewDate;
 
         public RaceViewHolder(@NonNull View itemView) {
             super(itemView);
-            raceNameTextView = itemView.findViewById(R.id.raceNameTextView);
-            circuitTextView = itemView.findViewById(R.id.circuitTextView);
-            dateTextView = itemView.findViewById(R.id.dateTextView);
+            textViewRaceName = itemView.findViewById(R.id.textViewRaceName);
+            textViewCircuitName = itemView.findViewById(R.id.textViewCircuitName);
+            textViewDate = itemView.findViewById(R.id.textViewDate);
         }
     }
 }
